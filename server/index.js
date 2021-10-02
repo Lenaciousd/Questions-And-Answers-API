@@ -86,15 +86,14 @@ app.put('/qa/answers/:answer_id/helpful', (req, res) => {
 });
 
 app.put('/qa/answers/:answer_id/report', (req, res) => {
-  // db.putAnswersReport(req, (error, data) => {
-  //   if (error) {
-  //     console.log('ERROR in server put answers report request ', error);
-  //     res.json('unable to access database');
-  //   } else {
-  // res.json(data);
-  // res.json({ endpoint: 'report answer' });
-  //   }
-  // });
+  db.putAnswersReport(req, (error, data) => {
+    if (error) {
+      console.log('ERROR in server put answers report request ', error);
+      res.json('unable to access database');
+    } else {
+      res.json(data);
+    }
+  });
 });
 
 app.listen(port, () => {
