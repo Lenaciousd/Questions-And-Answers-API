@@ -64,15 +64,14 @@ app.put('/qa/questions/:question_id/helpful', (req, res) => {
 });
 
 app.put('/qa/questions/:question_id/report', (req, res) => {
-  // db.putQuestionsReport(req, (error, data) => {
-  //   if (error) {
-  //     console.log('ERROR in server put questions report request ', error);
-  //     res.json('unable to access database');
-  //   } else {
-  // res.json(data);
-  // res.json({ endpoint: 'report question' });
-  //   }
-  // });
+  db.putQuestionsReport(req, (error, data) => {
+    if (error) {
+      console.log('ERROR in server put questions report request ', error);
+      res.json('unable to access database');
+    } else {
+      res.json(data);
+    }
+  });
 });
 
 app.put('/qa/answers/:answer_id/helpful', (req, res) => {
