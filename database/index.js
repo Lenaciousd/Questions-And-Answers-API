@@ -9,7 +9,7 @@ const pool = new Pool({
 });
 
 const getQuestions = (req, callback) => {
-  pool.query('(SELECT json_agg(results) FROM (SELECT * FROM questions WHERE product_id=$1) results)', [40351])
+  pool.query('(SELECT json_agg(results) AS results FROM (SELECT * FROM questions WHERE product_id=$1) results)', [40351])
     .then((data) => {
       console.log('DATA:', data);
       callback(null, data.rows);
@@ -21,7 +21,7 @@ const getQuestions = (req, callback) => {
 };
 
 const getAnswers = (req, callback) => {
-  pool.query('(SELECT json_agg(results) FROM(SELECT * FROM answers WHERE question_id=$1) results)', [28])
+  pool.query('(SELECT json_agg(results) AS results FROM(SELECT * FROM answers WHERE question_id=$1) results)', [28])
     .then((data) => {
       console.log('DATA:', data);
       callback(null, data);
@@ -33,7 +33,8 @@ const getAnswers = (req, callback) => {
 };
 
 const postQuestions = (req, callback) => {
-  pool.query('(INSERT INTO questions VALUES ())', [])
+  const questionPost = ['Hate those. They suck.', 'Hat', 'hat700@example.com', 40351, 1605427915063];
+  pool.query('INSERT INTO questions(body, asker_name, asker_email, product_id, date_written) VALUES ($1, $2, $3, $4, $5)', questionPost)
     .then((data) => {
       console.log('DATA:', data);
       callback(null, data);
@@ -56,6 +57,14 @@ const putQuestionsReport = (req, callback) => {
 
 };
 
+const putAnswersHelpful = (req, callback) => {
+
+};
+
+const putAnswersReport = (req, callback) => {
+
+};
+
 module.exports = {
   getQuestions,
   getAnswers,
@@ -63,4 +72,6 @@ module.exports = {
   postAnswers,
   putQuestionsHelpful,
   putQuestionsReport,
+  putAnswersHelpful,
+  putAnswersReport,
 };
