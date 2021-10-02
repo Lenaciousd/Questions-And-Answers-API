@@ -23,7 +23,7 @@ const getQuestions = (req, callback) => {
 const getAnswers = (req, callback) => {
   pool.query('(SELECT json_agg(results) AS results FROM(SELECT * FROM answers WHERE question_id=$1) results)', [28])
     .then((data) => {
-      console.log('DATA:', data);
+      console.log('DATA:', data.rows);
       callback(null, data);
     })
     .catch((error) => {
@@ -80,7 +80,20 @@ const putQuestionsReport = (req, callback) => {
 };
 
 const putAnswersHelpful = (req, callback) => {
-
+  pool.query('SELECT * FROM answers WHERE id=$1', [6879308])
+    .then((results) => {
+      const answer = results.rows[0];
+      const helpful = answer.helpfullness || 0;
+      return pool.query('UPDATE answers SET helpfullness = $1 + 1 WHERE id=$2', [helpful, answer.id]);
+    })
+    .then((data) => {
+      console.log('DATA:', data);
+      callback(null, data);
+    })
+    .catch((error) => {
+      console.log('ERROR:', error);
+      callback(error, null);
+    });
 };
 
 const putAnswersReport = (req, callback) => {
