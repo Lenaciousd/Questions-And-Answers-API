@@ -46,7 +46,16 @@ const postQuestions = (req, callback) => {
 };
 
 const postAnswers = (req, callback) => {
-
+  const answerPost = ['Not a good idea.', 'Bob', 'Bobarino5000@example.com', 28, 1605427915063];
+  pool.query('INSERT INTO answers(body, answerer_name, answerer_email, question_id, date_written) VALUES ($1, $2, $3, $4, $5)', answerPost)
+    .then((data) => {
+      console.log('DATA:', data);
+      callback(null, data);
+    })
+    .catch((error) => {
+      console.log('ERROR:', error);
+      callback(error, null);
+    });
 };
 
 const putQuestionsHelpful = (req, callback) => {
