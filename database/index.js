@@ -110,7 +110,20 @@ const putAnswersHelpful = (req, callback) => {
 };
 
 const putAnswersReport = (req, callback) => {
-
+  pool.query('SELECT * FROM answers WHERE id=$1', [6879308])
+    .then((results) => {
+      const answer = results.rows[0];
+      const reported = (Number(answer.reported) + 1).toString() || '1';
+      return pool.query('UPDATE answers SET reported = $1 WHERE id=$2', [reported, answer.id]);
+    })
+    .then((data) => {
+      console.log('DATA:', data);
+      callback(null, data);
+    })
+    .catch((error) => {
+      console.log('ERROR:', error);
+      callback(error, null);
+    });
 };
 
 module.exports = {
