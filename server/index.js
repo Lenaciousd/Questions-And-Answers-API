@@ -53,15 +53,14 @@ app.post('/qa/questions/:question_id/answers', (req, res) => {
 });
 
 app.put('/qa/questions/:question_id/helpful', (req, res) => {
-  // db.putQuestionsHelpful(req, (error, data) => {
-  //   if (error) {
-  //     console.log('ERROR in server put questions helpful request ', error);
-  //     res.json('unable to access database');
-  //   } else {
-  // res.json(data);
-  // res.json({ endpoint: 'mark question helpful' });
-  //   }
-  // });
+  db.putQuestionsHelpful(req, (error, data) => {
+    if (error) {
+      console.log('ERROR in server put questions helpful request ', error);
+      res.json('unable to access database');
+    } else {
+      res.json(data);
+    }
+  });
 });
 
 app.put('/qa/questions/:question_id/report', (req, res) => {
