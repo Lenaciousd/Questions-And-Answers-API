@@ -76,7 +76,20 @@ const putQuestionsHelpful = (req, callback) => {
 };
 
 const putQuestionsReport = (req, callback) => {
-
+  pool.query('SELECT * FROM questions WHERE id=$1', [3518965])
+    .then((results) => {
+      const question = results.rows[0];
+      const reported = (Number(question.reported) + 1).toString() || '1';
+      return pool.query('UPDATE questions SET reported = $1 WHERE id=$2', [reported, question.id]);
+    })
+    .then((data) => {
+      console.log('DATA:', data);
+      callback(null, data);
+    })
+    .catch((error) => {
+      console.log('ERROR:', error);
+      callback(error, null);
+    });
 };
 
 const putAnswersHelpful = (req, callback) => {
