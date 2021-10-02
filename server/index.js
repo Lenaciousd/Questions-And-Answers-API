@@ -42,15 +42,14 @@ app.post('/qa/questions', (req, res) => {
 });
 
 app.post('/qa/questions/:question_id/answers', (req, res) => {
-  // db.postAnswers(req, (error, data) => {
-  //   if (error) {
-  //     console.log('ERROR in server POST answers request ', error);
-  //     res.json('unable to post to database');
-  //   } else {
-  // res.json(data);
-  // res.json({ endpoint: 'post an answer for 1 question' });
-  //   }
-  // });
+  db.postAnswers(req, (error, data) => {
+    if (error) {
+      console.log('ERROR in server POST answers request ', error);
+      res.json('unable to post to database');
+    } else {
+      res.json(data);
+    }
+  });
 });
 
 app.put('/qa/questions/:question_id/helpful', (req, res) => {
