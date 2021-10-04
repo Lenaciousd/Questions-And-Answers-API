@@ -45,9 +45,3 @@ CREATE TABLE photos (
 
 ALTER TABLE answers ADD FOREIGN KEY (question_id) REFERENCES questions (id);
 ALTER TABLE photos ADD FOREIGN KEY (answer_id) REFERENCES answers (id);
-
-COPY questions FROM 'NOTFULLPATH........seeds/questions.csv' ( FORMAT CSV, DELIMITER(',') , HEADER);
-
-COPY answers FROM 'NOTFULLPATH........seeds/answers.csv' ( FORMAT CSV, DELIMITER(',') , HEADER);
-
-COPY photos FROM 'NOTFULLPATH........seeds/answers_photos.csv' ( FORMAT CSV, DELIMITER(',') , HEADER);
