@@ -9,10 +9,17 @@ const pool = new Pool({
 });
 
 const getQuestions = (req, callback) => {
-  pool.query('(SELECT json_agg(results) AS results FROM (SELECT * FROM questions WHERE product_id=$1) results)', [40351])
+  const currentProductId = 40351;
+  pool.query(`
+    SELECT
+    questions.id, questions.body, to_timestamp(questions.date_written/1000) AS date_written, questions.asker_name, questions.asker_email, questions.reported, questions.helpful
+    FROM questions
+    WHERE product_id=$1
+  `, [currentProductId])
     .then((data) => {
+      const returnData = { product_id: currentProductId, results: data.rows };
       console.log('DATA:', data);
-      callback(null, data.rows);
+      callback(null, returnData);
     })
     .catch((error) => {
       console.log('ERROR:', error);
@@ -21,10 +28,24 @@ const getQuestions = (req, callback) => {
 };
 
 const getAnswers = (req, callback) => {
-  pool.query('(SELECT json_agg(results) AS results FROM(SELECT * FROM answers WHERE question_id=$1) results)', [28])
+  const getAnswersQueryString = `
+  SELECT
+  answers.id, answers.question_id, answers.body, to_timestamp(answers.date_written/1000) AS date_written, answers.answerer_name, answers.answerer_email, answers.helpfullness, answers.reported,
+  JSON_AGG(JSON_BUILD_OBJECT('id', photos.id, 'url', photos.url)) AS photos
+  FROM answers
+  INNER JOIN photos
+  ON answers.id = photos.answer_id
+  WHERE answers.question_id = $1
+  GROUP BY answers.id
+  `;
+  const currentQuestionId = 28;
+  pool.query(getAnswersQueryString, [currentQuestionId])
     .then((data) => {
-      console.log('DATA:', data.rows);
-      callback(null, data);
+      console.log('DATA:', data);
+      const dataToReturn = {
+        question: '28', page: '1', count: data.rowCount, results: data.rows,
+      };
+      callback(null, dataToReturn);
     })
     .catch((error) => {
       console.log('ERROR:', error);
