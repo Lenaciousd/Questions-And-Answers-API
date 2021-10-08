@@ -1,12 +1,25 @@
 const { Pool } = require('pg');
+const pw = require('./db.config');
 
+// for EC2 postgres account
 const pool = new Pool({
-  user: 'lenoraesquenazi',
-  host: 'localhost',
-  database: 'q_and_a',
-  password: '',
+  user: 'postgres',
+  host: '18.144.165.1',
+  database: 'postgres',
+  password: pw.pw,
   port: 5432,
 });
+
+console.log('Connected to Postgres');
+
+// for local postgres account
+// const pool = new Pool({
+//   user: 'lenoraesquenazi',
+//   host: 'localhost',
+//   database: 'q_and_a',
+//   password: '',
+//   port: 5432,
+// });
 
 const getQuestions = (req, callback) => {
   const currentProductId = 40351;
