@@ -9,8 +9,8 @@ app.get('/', (req, res) => {
   res.json('Hello World');
 });
 
-app.get('/loaderio-1f16d3c0b2f389744578cf5591436ecd/', (req, res) => {
-  res.json('loaderio-1f16d3c0b2f389744578cf5591436ecd');
+app.get('/loaderio-ecc840b0e072626394923e63ac532057/', (req, res) => {
+  res.json('loaderio-ecc840b0e072626394923e63ac532057');
 });
 
 app.get('/qa/questions', (req, res) => {
