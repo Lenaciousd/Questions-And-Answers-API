@@ -9,6 +9,8 @@ app.get('/', (req, res) => {
   res.send('Hello World');
 });
 
+app.get('/loaderio-1f16d3c0b2f389744578cf5591436ecd/', (req, res) => res.send('loaderio-1f16d3c0b2f389744578cf5591436ecd'));
+
 app.get('/qa/questions', (req, res) => {
   db.getQuestions(req, (error, data) => {
     if (error) {
