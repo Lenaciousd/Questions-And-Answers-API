@@ -6,10 +6,12 @@ const port = 3002;
 const db = require('../database/index');
 
 app.get('/', (req, res) => {
-  res.send('Hello World');
+  res.json('Hello World');
 });
 
-app.get('/loaderio-1f16d3c0b2f389744578cf5591436ecd/', (req, res) => res.send('loaderio-1f16d3c0b2f389744578cf5591436ecd'));
+app.get('/loaderio-1f16d3c0b2f389744578cf5591436ecd/', (req, res) => {
+  res.json('loaderio-1f16d3c0b2f389744578cf5591436ecd');
+});
 
 app.get('/qa/questions', (req, res) => {
   db.getQuestions(req, (error, data) => {
