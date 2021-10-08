@@ -10,6 +10,9 @@ lerna-debug.log*
 /seeds/
 /seeds/loadingCommands
 
+# Config files
+*.config.js
+
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
