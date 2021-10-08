@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/loaderio-ecc840b0e072626394923e63ac532057/', (req, res) => {
-  res.json('loaderio-ecc840b0e072626394923e63ac532057');
+  res.send('loaderio-ecc840b0e072626394923e63ac532057');
 });
 
 app.get('/qa/questions', (req, res) => {
