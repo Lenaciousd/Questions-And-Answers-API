@@ -1,6 +1,7 @@
 # Questions-And-Answers-API
 ## Hack Reactor System Design Capstone Project
 ---
+![loader.io]
 ## Tech Stack
 
 <code><img width="15%" src="https://www.vectorlogo.zone/logos/nodejs/nodejs-ar21.svg"></code>
@@ -21,3 +22,5 @@ npm install
 ```bash
 npm start
 ```
+<!-- Images -->
+[loader.io]: assets/Loader.io.png
